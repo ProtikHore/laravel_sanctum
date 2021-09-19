@@ -35,8 +35,9 @@ class HomeController extends Controller
         return response()->json($user);
     }
 
-    public function logout() {
-        $this->guard()->logout();
-        return response()->json(['message' => 'Successfully logged out']);
+    public function logout(Request $request) {
+        //$this->guard()->logout();
+        $data = $request->user()->currentAccessToken()->delete();
+        return response()->json(['message' => 'Successfully logged out', 'data' => $data]);
     }
 }
